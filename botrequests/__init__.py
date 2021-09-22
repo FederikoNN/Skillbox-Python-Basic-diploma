@@ -1,1 +1,1 @@
-__all__ = ['bestdeal', 'help', 'history', 'highprice', 'lowprice', 'start']
+__all__ = ['bestdeal', 'help', 'history', 'highprice', 'lowprice', 'start', 'unexpected_case']
