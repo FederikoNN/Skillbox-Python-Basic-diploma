@@ -1,7 +1,7 @@
 from aiogram import executor
 import logging
 from botrequests import *
-import errors
+import log_and_errors
 from loader import dp, db
 from utils.notify_admins import on_startup_notify
 from utils.set_bot_commands import set_default_commands
@@ -17,7 +17,7 @@ async def on_startup(dispatcher):
         db.create_table_users()
         db.create_table_history()
     except Exception as e:
-        logging.exception('Ну ё маё!')
+        logging.exception(e)
 
 
 if __name__ == '__main__':
