@@ -7,9 +7,9 @@ from aiogram.types import CallbackQuery, MediaGroup
 from buttons.photos_keyboard import photos_keyboard
 from loader import dp, db
 
-from botrequests.dysplay_output.hotel_photos import hotel_photos
-from botrequests.dysplay_output.hotels_in_city import hotels_in_city
-from botrequests.dysplay_output.hotels_list import hotels_list
+from botrequests.api_requests.hotel_photos import hotel_photos
+from botrequests.api_requests.hotels_in_city import hotels_in_city
+from botrequests.api_requests.hotels_list import hotels_list
 
 
 @dp.message_handler(Command('lowprice'), state='*')
