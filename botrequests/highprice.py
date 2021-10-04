@@ -15,7 +15,7 @@ from botrequests.api_requests.hotels_list import hotels_list
 
 
 @dp.message_handler(Command('highprice'), state='*')
-async def command_low_price(message: types.Message, state: FSMContext):
+async def command_high_price(message: types.Message, state: FSMContext):
     try:
         logging.info(f'{message.from_user.id} {message.text}')
 
@@ -87,7 +87,7 @@ async def input_hotels_amount_func(message: types.Message, state: FSMContext):
 
 
 @dp.callback_query_handler(state='input_photos_high')
-async def show_low_price_hotels(call: CallbackQuery, state: FSMContext):
+async def show_high_price_hotels(call: CallbackQuery, state: FSMContext):
     try:
         logging.info(f'{call.from_user.id} {call.data}')
 
@@ -159,7 +159,7 @@ async def show_low_price_hotels(call: CallbackQuery, state: FSMContext):
 
 
 @dp.message_handler(regexp='\d+', state='input_photo_amount_high')
-async def show_low_price_hotels_with_photo(message: types.Message, state: FSMContext):
+async def show_high_price_hotels_with_photo(message: types.Message, state: FSMContext):
     try:
         logging.info(f'{message.from_user.id} {message.text}')
 
