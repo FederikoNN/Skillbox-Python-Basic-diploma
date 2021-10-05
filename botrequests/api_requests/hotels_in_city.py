@@ -6,7 +6,7 @@ from config import RAPID_API_KEY
 def hotels_in_city(city):
     url = "https://hotels4.p.rapidapi.com/locations/search"
 
-    querystring = {"query": "Россия " + city, "locale": "ru_RU"}
+    querystring = {"query": city, "locale": "ru_RU"}
 
     headers = {
         'x-rapidapi-host': "hotels4.p.rapidapi.com",

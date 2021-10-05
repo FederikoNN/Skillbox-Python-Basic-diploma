@@ -3,10 +3,10 @@ import requests
 from config import RAPID_API_KEY
 
 
-def hotel_photos(city):
+def hotel_photos(hotel):
     url = "https://hotels4.p.rapidapi.com/properties/get-hotel-photos"
 
-    querystring = {"id": city}
+    querystring = {"id": hotel}
 
     headers = {
         'x-rapidapi-host': "hotels4.p.rapidapi.com",

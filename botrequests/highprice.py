@@ -94,9 +94,9 @@ async def show_high_price_hotels(call: CallbackQuery, state: FSMContext):
         await call.answer()
 
         temp_hotel_amount = 10
-        photos = call.data.split('_')[-1]
+        # photos = call.data.split('_')[-1]
 
-        if photos == 'yes':
+        if call.data == 'photos_yes':
             await call.message.answer(f'Введите количество фотографий, '
                                       f'которое будет выводиться с каждым отелем, но не больше {temp_hotel_amount}')
 
