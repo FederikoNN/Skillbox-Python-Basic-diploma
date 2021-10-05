@@ -21,7 +21,7 @@ async def command_low_price(message: types.Message, state: FSMContext):
 
         await message.answer('Напишите город, в котором будет производиться поиск отелей')
 
-        await state.update_data(command_datetime=datetime.datetime.now())
+        await state.update_data(command_datetime=datetime.datetime.now().strftime('%d-%m-%Y %H:%M'))
         await state.update_data(command='/lowprice')
 
         await state.set_state('input_city_low')

@@ -23,7 +23,7 @@ async def command_high_price(message: types.Message, state: FSMContext):
 
         await message.answer('Напишите город, в котором будет производиться поиск отелей')
 
-        await state.update_data(command_datetime=datetime.datetime.now())
+        await state.update_data(command_datetime=datetime.datetime.now().strftime('%d-%m-%Y %H:%M'))
         await state.update_data(command='/highprice')
 
         await state.set_state('input_city_high')
@@ -39,7 +39,7 @@ async def input_city_func(message: types.Message, state: FSMContext):
         logging.info(f'{message.from_user.id} {message.text}')
 
         city = message.text
-        #Указываем сортирвоку сначала самые дорогие
+        # Указываем сортировку сначала самые дорогие
         sort = 'PRICE_HIGHEST_FIRST'
         await message.answer('Ищем отели...')
 
@@ -124,12 +124,12 @@ async def show_high_price_hotels(call: CallbackQuery, state: FSMContext):
                             hotel_price = hotel.get('ratePlan').get('price')['current']
 
                             hotel_description += "Название отеля: {name}\n" \
-                                                "Адрес отеля: {address}\n" \
-                                                "Расстояние от центра города: {distance} \n" \
-                                                "Цена за сутки: {price} \n\n".format(name=hotel_name,
-                                                                                     address=hotel_address,
-                                                                                     distance=hotel_distance,
-                                                                                     price=hotel_price)
+                                                 "Адрес отеля: {address}\n" \
+                                                 "Расстояние от центра города: {distance} \n" \
+                                                 "Цена за сутки: {price} \n\n".format(name=hotel_name,
+                                                                                      address=hotel_address,
+                                                                                      distance=hotel_distance,
+                                                                                      price=hotel_price)
                             counter += 1
                             hotels_history += hotel_name + '\n'
 
@@ -229,4 +229,3 @@ async def show_high_price_hotels_with_photo(message: types.Message, state: FSMCo
     except Exception as e:
         logging.exception(e)
         await state.finish()
-
