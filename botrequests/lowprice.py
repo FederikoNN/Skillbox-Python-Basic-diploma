@@ -2,7 +2,6 @@ import logging
 from aiogram import types
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.builtin import Command
-import datetime
 from aiogram.types import CallbackQuery, MediaGroup
 from buttons.photos_keyboard import photos_keyboard
 from loader import dp, db
@@ -21,7 +20,7 @@ async def command_low_price(message: types.Message, state: FSMContext):
 
         await message.answer('Напишите город, в котором будет производиться поиск отелей')
 
-        await state.update_data(command_datetime=datetime.datetime.now().strftime('%d-%m-%Y %H:%M'))
+        await state.update_data(command_datetime=message.date.strftime('%d-%m-%Y %H:%M'))
         await state.update_data(command='/lowprice')
 
         await state.set_state('input_city_low')
