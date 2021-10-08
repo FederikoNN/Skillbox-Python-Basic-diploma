@@ -1,4 +1,3 @@
-import datetime
 import logging
 
 from aiogram import types
@@ -18,12 +17,14 @@ from botrequests.api_requests.hotels_list import hotels_list
 async def command_high_price(message: types.Message, state: FSMContext):
     try:
         logging.info(f'{message.from_user.id} {message.text}')
+        print(message)
+        print(message.date.strftime('%d-%m-%Y %H:%M'))
 
         await state.finish()
 
         await message.answer('Напишите город, в котором будет производиться поиск отелей')
 
-        await state.update_data(command_datetime=datetime.datetime.now().strftime('%d-%m-%Y %H:%M'))
+        await state.update_data(command_datetime=message.date.strftime('%d-%m-%Y %H:%M'))
         await state.update_data(command='/highprice')
 
         await state.set_state('input_city_high')

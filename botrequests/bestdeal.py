@@ -1,4 +1,3 @@
-import datetime
 import logging
 
 from aiogram import types
@@ -27,7 +26,7 @@ async def command_low_price(message: types.Message, state: FSMContext):
         await message.answer('Напишите город, в котором будет производиться поиск отелей')
 
         # Сохраняем данные через машину состояний
-        await state.update_data(command_datetime=datetime.datetime.now().strftime('%d-%m-%Y %H:%M'))
+        await state.update_data(command_datetime=message.date.strftime('%d-%m-%Y %H:%M'))
         await state.update_data(command='/bestdeal')
         # Устанавливаем состояние
         await state.set_state('input_city_bestdeal')
