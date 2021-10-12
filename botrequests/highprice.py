@@ -17,8 +17,6 @@ from botrequests.api_requests.hotels_list import hotels_list
 async def command_high_price(message: types.Message, state: FSMContext):
     try:
         logging.info(f'{message.from_user.id} {message.text}')
-        print(message)
-        print(message.date.strftime('%d-%m-%Y %H:%M'))
 
         await state.finish()
 
