@@ -261,7 +261,7 @@ async def show_low_price_hotels_with_photo(message: types.Message, state: FSMCon
                             new_photo_link = photo_link.replace('{size}', 'z')
                             # Чтобы отображалось описание в посте с альбомом, необходимо вставить его в последнюю фотку
                             # Поэтому если последняя фотка, то вставляем описание
-                            if (photo_amount - counter_photo) == 1:
+                            if (photo_amount - counter_photo) == 0:
                                 hotel_description = "Название отеля: {name}\n" \
                                                     "Адрес отеля: {address}\n" \
                                                     "Расстояние от центра города: {distance} \n" \

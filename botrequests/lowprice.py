@@ -186,7 +186,7 @@ async def show_low_price_hotels_with_photo(message: types.Message, state: FSMCon
                             counter_photo += 1
                             photo_link = photo['baseUrl']
                             new_photo_link = photo_link.replace('{size}', 'z')
-                            if (photo_amount - counter_photo) == 1:
+                            if (photo_amount - counter_photo) == 0:
                                 hotel_description = "Название отеля: {name}\n" \
                                                     "Адрес отеля: {address}\n" \
                                                     "Расстояние от центра города: {distance} \n" \
