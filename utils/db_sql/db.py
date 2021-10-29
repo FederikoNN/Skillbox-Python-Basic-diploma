@@ -63,7 +63,8 @@ class Database:
         self.execute(sql, commit=True)
 
     def add_history(self, tg_id, command, datetime, result):
-        sql = "INSERT INTO History (telegram_id, command, datetime, result) VALUES (?,?,?,?);"
+        sql = "INSERT INTO History (telegram_id, command, datetime, result) " \
+              "VALUES (?,?,?,?);"
         parameters = (tg_id, command, datetime, result)
         self.execute(sql, parameters=parameters, commit=True)
 
@@ -74,5 +75,3 @@ class Database:
 
 def logger(statement):
     logging.info(statement)
-
-
