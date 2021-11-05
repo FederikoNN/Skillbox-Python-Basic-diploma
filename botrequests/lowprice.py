@@ -18,9 +18,11 @@ async def command_low_price(message: types.Message, state: FSMContext):
 
         await state.finish()
 
-        await message.answer('Напишите город, в котором будет производиться поиск отелей')
+        await message.answer(
+            'Напишите город, в котором будет производиться поиск отелей')
 
-        await state.update_data(command_datetime=message.date.strftime('%d-%m-%Y %H:%M'))
+        await state.update_data(
+            command_datetime=message.date.strftime('%d-%m-%Y %H:%M'))
         await state.update_data(command='/lowprice')
 
         await state.set_state('input_city_low')
@@ -48,8 +50,10 @@ async def input_city_func(message: types.Message, state: FSMContext):
             await state.update_data(city_id=city_id)
             await state.update_data(hotels=hotels)
             await state.update_data(number_of_hotels=number_of_hotels)
-            await message.answer(f'Введите количество отелей, которое необходимо вывести в результате, '
-                                 f'но не больше {number_of_hotels}')
+            await message.answer(
+                f'Введите количество отелей, которое необходимо вывести в '
+                f'результате, '
+                f'но не больше {number_of_hotels}')
 
             await state.set_state('input_hotels_amount_low')
         else:
@@ -102,7 +106,9 @@ async def show_low_price_hotels(call: CallbackQuery, state: FSMContext):
 
         if call.data == 'photos_yes':
             await call.message.answer(f'Введите количество фотографий, '
-                                      f'которое будет выводиться с каждым отелем, но не больше {temp_hotel_amount}')
+                                      f'которое будет выводиться с каждым '
+                                      f'отелем, но не больше '
+                                      f'{temp_hotel_amount}')
 
             await state.set_state('input_photo_amount_low')
         else:
@@ -122,15 +128,16 @@ async def show_low_price_hotels(call: CallbackQuery, state: FSMContext):
                         hotel_name = hotel['name']
                         hotel_address = hotel['address']['streetAddress']
                         hotel_distance = hotel['landmarks'][0]['distance']
-                        hotel_price = hotel.get('ratePlan').get('price')['current']
+                        hotel_price = hotel.get('ratePlan').get('price')[
+                            'current']
 
-                        hotel_description += "Название отеля: {name}\n" \
-                                             "Адрес отеля: {address}\n" \
-                                             "Расстояние от центра города: {distance} \n" \
-                                             "Цена за сутки: {price} \n\n".format(name=hotel_name,
-                                                                                  address=hotel_address,
-                                                                                  distance=hotel_distance,
-                                                                                  price=hotel_price)
+                        hotel_description += "Название отеля: {name}\nАдрес " \
+                                             "отеля: {address}\nРасстояние от " \
+                                             "центра города: {distance} " \
+                                             "\nЦена за сутки: {price} " \
+                                             "\n\n".format(
+                            name=hotel_name, address=hotel_address,
+                            distance=hotel_distance, price=hotel_price)
                         counter += 1
                         hotels_history += hotel_name + '\n'
 
@@ -145,7 +152,8 @@ async def show_low_price_hotels(call: CallbackQuery, state: FSMContext):
             command_datetime = data.get('command_datetime')
             command = data.get('command')
 
-            db.add_history(call.from_user.id, command, command_datetime, hotels_history)
+            db.add_history(call.from_user.id, command, command_datetime,
+                           hotels_history)
 
             await state.finish()
 
@@ -155,7 +163,8 @@ async def show_low_price_hotels(call: CallbackQuery, state: FSMContext):
 
 
 @dp.message_handler(regexp='\d+', state='input_photo_amount_low')
-async def show_low_price_hotels_with_photo(message: types.Message, state: FSMContext):
+async def show_low_price_hotels_with_photo(message: types.Message,
+                                           state: FSMContext):
     try:
         logging.info(f'{message.from_user.id} {message.text}')
 
@@ -182,18 +191,22 @@ async def show_low_price_hotels_with_photo(message: types.Message, state: FSMCon
                     counter_photo = 0
 
                     for photo in photos_mass:
-                        if photo_amount != counter_photo and photos_mass.index(photo) < 10:
+                        if photo_amount != counter_photo and photos_mass.index(
+                                photo) < 10:
                             counter_photo += 1
                             photo_link = photo['baseUrl']
                             new_photo_link = photo_link.replace('{size}', 'z')
-                            if (photo_amount - counter_photo) == 1:
+                            if (photo_amount - counter_photo) == 0:
                                 hotel_description = "Название отеля: {name}\n" \
                                                     "Адрес отеля: {address}\n" \
-                                                    "Расстояние от центра города: {distance} \n" \
-                                                    "Цена за сутки: {price} \n\n".format(name=hotel_name,
-                                                                                         address=hotel_address,
-                                                                                         distance=hotel_distance,
-                                                                                         price=hotel_price)
+                                                    "Расстояние от центра " \
+                                                    "города: {distance} \n" \
+                                                    "Цена за сутки: {price} " \
+                                                    "\n\n".format(
+                                    name=hotel_name,
+                                    address=hotel_address,
+                                    distance=hotel_distance,
+                                    price=hotel_price)
 
                                 album.attach_photo(photo=new_photo_link,
                                                    caption=hotel_description)
@@ -216,7 +229,8 @@ async def show_low_price_hotels_with_photo(message: types.Message, state: FSMCon
         command_datetime = data.get('command_datetime')
         command = data.get('command')
 
-        db.add_history(message.from_user.id, command, command_datetime, hotels_history)
+        db.add_history(message.from_user.id, command, command_datetime,
+                       hotels_history)
 
         await message.answer('Поиск завершён')
         await state.finish()

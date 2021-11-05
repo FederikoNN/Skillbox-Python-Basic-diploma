@@ -1,4 +1,4 @@
-from aiogram import executor
+# from aiogram import executor
 import logging
 
 from aiogram.utils.executor import start_webhook
@@ -12,6 +12,7 @@ from utils.set_bot_commands import set_default_commands
 
 
 async def on_startup(dispatcher):
+    # Устанавливаем webhook
     await bot.set_webhook(url=WEBHOOK_URL, certificate=SSL_CERTIFICATE)
     # Устанавливаем дефолтные команды
     await set_default_commands(dispatcher)
